@@ -1,6 +1,10 @@
 #ifndef COREENGINE_H
 #define COREENGINE_H
 #include "Window.h"
+#include "Timer.h"
+#include "Debug.h"
+#include "GameInterface.h"
+#include "Scene.h"
 #include <memory>
 class CoreEngine
 {
@@ -14,15 +18,23 @@ public:
 	~CoreEngine();
 	bool OnCreate(std::string name_, int wight_, int height_);
 	void Run();
+	void Exit();
 	bool GetIsRunning();
+	int GetCurrentScene() const;
+	void SetGameInterface(GameInterface* gameInterface_);
+	void SetCurrentScene(int sceneNum_);
 private:
 	void Update(const float deltaTime_);
 	void Render();
 	void OnDestroy();
 	Window* window;
 	bool isRunning;
+	Timer timer;
+	unsigned int fps;
 	static std::unique_ptr<CoreEngine> engineInstance;
 	friend std::default_delete<CoreEngine>;
+	GameInterface* gameInterface;
+	int currentSceneNum;
 };
 
 #endif
