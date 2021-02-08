@@ -8,7 +8,7 @@ Window::~Window() {
 }
 bool Window::OnCreate(std::string name_, int wight_, int height_) {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		std::cout << "Fail to initialize SDL" << std::endl;
+		Debug::Error("Fail to initialize SDL", "Window.cpp", __LINE__);
 		return false;
 	}
 	this->wight = wight_;
@@ -22,14 +22,14 @@ bool Window::OnCreate(std::string name_, int wight_, int height_) {
 		SDL_WINDOW_OPENGL);
 	if (!window)
 	{
-		std::cout << "Failed to create window" << std::endl;
+		Debug::Error("Failed to create window", "Window.cpp", __LINE__);
 		return false;
 	}
 	context = SDL_GL_CreateContext(window);
 	SetPostAttributes();
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
-		std::cout << "Failed to initialize GLEW" << std::endl;
+		Debug::Error("Failed to initialize GLEW", "Window.cpp", __LINE__);
 		return false;
 	}
 	glEnable(GL_DEPTH_TEST);

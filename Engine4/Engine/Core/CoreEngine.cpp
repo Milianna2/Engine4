@@ -8,21 +8,23 @@ CoreEngine::~CoreEngine() {
 
 }
 CoreEngine* CoreEngine::GetInstance() {
-	if (engineInstance.get() == nullptr)
+	if (engineInstance.get() == nullptr) {
 		engineInstance.reset(new CoreEngine);
+		Debug::Info("Engine Instance was reseted", "CoreEngine.cpp", __LINE__);
+	}
 	return engineInstance.get();
 }
 bool CoreEngine::OnCreate(std::string name_, int wight_, int height_) {
 	Debug::onCreate();
 	window = new Window();
 	if (!window->OnCreate(name_, wight_, height_)) {
-		std::cout << "Window failed to initialize" << std::endl;
+		Debug::Error("Window failed to initialize", "CoreEngine.cpp", __LINE__);
 		OnDestroy();
 		return isRunning = false;
 	}
 	if (gameInterface) {
 		if (!gameInterface->OnCreate()) {
-			std::cout << "Game failed to initialize" << std::endl;
+			Debug::Error("Game failed to initialize", "CoreEngine.cpp", __LINE__);
 			OnDestroy();
 			return isRunning = false;
 		}

@@ -12,8 +12,7 @@ bool Game1::OnCreate() {
 		currentSceneNum = 0;
 		return currentScene->OnCreate();;
 	}
-
-std::cout << "Engine's scene is not initialiized to 0" << std::endl;
+	Debug::Warning("Engine's scene is not initialiized to 0", "Game1.cpp", __LINE__);
 	return false;
 }
 void Game1::Update(const float deltaTime_) {
@@ -37,7 +36,7 @@ void Game1::BuildScene() {
 	}
 	currentSceneNum = CoreEngine::GetInstance()->GetCurrentScene();
 	if (!currentScene->OnCreate()) {
-		std::cout << "Scene failed to be created" << std::endl;
+		Debug::Error("Scene failed to be created", "Game1.cpp", __LINE__);
 		CoreEngine::GetInstance()->Exit();
 	}
 }
