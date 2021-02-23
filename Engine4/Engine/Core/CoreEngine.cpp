@@ -22,6 +22,11 @@ bool CoreEngine::OnCreate(std::string name_, int wight_, int height_) {
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	ShaderHandler::GetInstance()->CreateProgram("colourShader",
+		"../Engine/Shaders/ColourVertexShader.glsl",
+		"../Engine/Shader/ColourFragmentShader.glsl");
+
 	if (gameInterface) {
 		if (!gameInterface->OnCreate()) {
 			Debug::Error("Game failed to initialize", "CoreEngine.cpp", __LINE__);
@@ -73,10 +78,15 @@ void CoreEngine::Render() {
 	SDL_GL_SwapWindow(window->GetWindow());
 }
 void CoreEngine::OnDestroy() {
+
+	ShaderHandler::GetInstance()->OnDestroy();
+
 	delete gameInterface;
 	gameInterface = nullptr;
+
 	delete window;
 	window = nullptr;
+
 	SDL_Quit();
 	exit(0);
 }

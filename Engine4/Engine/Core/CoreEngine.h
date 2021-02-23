@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include <memory>
 #include "../Rendering/3D/GameObject.h"
+#include "../Graphics//ShaderHandler.h"
 class CoreEngine
 {
 public:

@@ -12,7 +12,7 @@ Mesh::~Mesh() {
 }
 void Mesh::Render() {
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
+	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());//
 	glBindVertexArray(0);
 }
 void Mesh::GenerateBuffers() {

@@ -1,2 +1,2 @@
-[INFO]: Everything worked in: CoreEngine.cpp on line: 32
-[INFO]: We switched to the game scene in: GameScene.cpp on line: 14
+[INFO]: Everything worked in: CoreEngine.cpp on line: 37
+[INFO]: We switched to the game scene in: GameScene.cpp on line: 11
