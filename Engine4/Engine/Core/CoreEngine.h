@@ -1,13 +1,15 @@
 #ifndef COREENGINE_H
 #define COREENGINE_H
+#include <memory>
 #include "Window.h"
 #include "Timer.h"
 #include "Debug.h"
 #include "GameInterface.h"
 #include "Scene.h"
-#include <memory>
+
 #include "../Rendering/3D/GameObject.h"
 #include "../Graphics//ShaderHandler.h"
+#include "../Camera/Camera.h"
 class CoreEngine
 {
 public:
@@ -16,16 +18,21 @@ public:
 	CoreEngine& operator=(const CoreEngine&) = delete;
 	CoreEngine& operator=(CoreEngine&&) = delete;
 	static CoreEngine* GetInstance();
-	CoreEngine();
-	~CoreEngine();
+	
 	bool OnCreate(std::string name_, int wight_, int height_);
 	void Run();
 	void Exit();
 	bool GetIsRunning();
 	int GetCurrentScene() const;
+	float GetScreenWidth() const;
+	float GetScreenHeight() const;
+	Camera* GetCamera() const;
 	void SetGameInterface(GameInterface* gameInterface_);
 	void SetCurrentScene(int sceneNum_);
+	void SetCamera(Camera* camera_);
 private:
+	CoreEngine();
+	~CoreEngine();
 	void Update(const float deltaTime_);
 	void Render();
 	void OnDestroy();
@@ -37,6 +44,7 @@ private:
 	friend std::default_delete<CoreEngine>;
 	GameInterface* gameInterface;
 	int currentSceneNum;
+	Camera* camera;
 };
 
 #endif

@@ -14,13 +14,13 @@ public:
 	~Window();
 	bool OnCreate(std::string name_, int wight_, int height_);
 	void OnDestroy();
-	int GetWight() const;
+	int GetWidht() const;
 	int GetHeight() const;
 	SDL_Window* GetWindow() const;
 private:
 	void SetPreAttributes();
 	void SetPostAttributes();
-	int wight;
+	int widht;
 	int height;
 	SDL_Window* window;
 	SDL_GLContext context;

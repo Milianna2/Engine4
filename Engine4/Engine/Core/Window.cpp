@@ -10,13 +10,13 @@ bool Window::OnCreate(std::string name_, int wight_, int height_) {
 		Debug::Error("Fail to initialize SDL", "Window.cpp", __LINE__);
 		return false;
 	}
-	this->wight = wight_;
+	this->widht = wight_;
 	this->height = height_;
 	SetPreAttributes();
 	window = SDL_CreateWindow(name_.c_str(),
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		wight,
+		widht,
 		height,
 		SDL_WINDOW_OPENGL);
 	if (!window)
@@ -31,8 +31,9 @@ bool Window::OnCreate(std::string name_, int wight_, int height_) {
 		Debug::Error("Failed to initialize GLEW", "Window.cpp", __LINE__);
 		return false;
 	}
-	glEnable(GL_DEPTH_TEST);
+
 	std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
+	glViewport(0, 0, widht, height);
 	return true;
 }
 void Window::OnDestroy() {
@@ -40,8 +41,8 @@ void Window::OnDestroy() {
 	SDL_DestroyWindow(window);
 	window = nullptr;
 }
-int Window::GetWight() const{
-	return wight;
+int Window::GetWidht() const{
+	return widht;
 }
 int Window::GetHeight() const{
 	return height;

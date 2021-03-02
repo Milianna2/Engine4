@@ -24,8 +24,8 @@ bool CoreEngine::OnCreate(std::string name_, int wight_, int height_) {
 	}
 
 	ShaderHandler::GetInstance()->CreateProgram("colourShader",
-		"../Engine/Shaders/ColourVertexShader.glsl",
-		"../Engine/Shader/ColourFragmentShader.glsl");
+		"Engine/Shaders/ColourVertexShader.glsl",
+		"Engine/Shader/ColourFragmentShader.glsl");
 
 	if (gameInterface) {
 		if (!gameInterface->OnCreate()) {
@@ -57,11 +57,28 @@ bool CoreEngine::GetIsRunning() {
 int CoreEngine::GetCurrentScene() const {
 	return currentSceneNum;
 }
+
+Camera* CoreEngine::GetCamera() const {
+	return camera;
+}
+
 void CoreEngine::SetGameInterface(GameInterface* gameInterface_) {
 	gameInterface = gameInterface_;
 }
 void CoreEngine::SetCurrentScene(int sceneNum_) {
 	currentSceneNum = sceneNum_;
+}
+
+void CoreEngine::SetCamera(Camera* camera_) {
+	camera = camera_;
+
+}
+
+float CoreEngine::GetScreenWidth() const {
+	return static_cast<float>(window->GetWidht());
+}
+float CoreEngine::GetScreenHeight() const {
+	return static_cast<float>(window->GetHeight());
 }
 void CoreEngine::Update(const float deltaTime_) {
 	if (gameInterface) {
@@ -83,6 +100,9 @@ void CoreEngine::OnDestroy() {
 
 	delete gameInterface;
 	gameInterface = nullptr;
+
+	delete camera;
+	camera = nullptr;
 
 	delete window;
 	window = nullptr;
