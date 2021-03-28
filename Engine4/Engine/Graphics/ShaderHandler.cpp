@@ -19,15 +19,19 @@ void ShaderHandler::CreateProgram(const std::string& shaderName_,
 	const std::string& fragmentShaderFileName_) {
 	std::string vertexShaderCode = ReadShader(vertexShaderFileName_);
 	std::string fragmentShaderCode = ReadShader(fragmentShaderFileName_);
-	if (vertexShaderCode == "" || fragmentShaderCode == "")
+	if (vertexShaderCode == "" || fragmentShaderCode == "") {
+		Debug::Error("Vertex and fragment shaders are null", "ShaderHandler.cpp",__LINE__);
 		return;
+	}
 
 	GLuint vertexShader = CreateShader(GL_VERTEX_SHADER,
 		vertexShaderCode, shaderName_);
 	GLuint fragmentShader = CreateShader(GL_FRAGMENT_SHADER,
 		fragmentShaderCode, shaderName_);
-	if (vertexShader == 0 || fragmentShader == 0)
+	if (vertexShader == 0 || fragmentShader == 0) {
+		Debug::Error("Vertex and fragment shaders are null", "ShaderHandler.cpp", __LINE__);
 		return;
+	}
 	GLint linkResult = 0;
 	GLuint program = glCreateProgram();
 	glAttachShader(program, vertexShader);

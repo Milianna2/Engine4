@@ -26,7 +26,15 @@ Camera::Camera()
 }
 
 Camera::~Camera() {
-
+	if (lightSource.size() > 0)
+	{
+		for (auto l : lightSource)
+		{
+			delete l;
+			l = nullptr;
+		}
+		lightSource.clear();
+	}
 }
 
 void Camera::SetPosition(glm::vec3 position_) {
@@ -65,4 +73,12 @@ void Camera::UpdateCameraVector() {
 	right = glm::normalize(glm::cross(forward, worldUp));
 	up = glm::normalize(glm::cross(right, forward));
 	view = glm::lookAt(position, position + forward, up);
+}
+void Camera::AddLightSource(LightSource* lightSource_) {
+	lightSource.push_back(lightSource_);
+}
+
+std::vector<LightSource*> Camera::GetLightList()
+{
+	return lightSource;
 }

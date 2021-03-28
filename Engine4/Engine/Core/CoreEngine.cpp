@@ -25,8 +25,10 @@ bool CoreEngine::OnCreate(std::string name_, int wight_, int height_) {
 
 	ShaderHandler::GetInstance()->CreateProgram("colourShader",
 		"Engine/Shaders/ColourVertexShader.glsl",
-		"Engine/Shader/ColourFragmentShader.glsl");
-
+		"Engine/Shaders/ColourFragmentShader.glsl");
+	ShaderHandler::GetInstance()->CreateProgram("basicShader",
+		"Engine/Shaders/VertexShader.glsl",
+		"Engine/Shaders/FragmentShader.glsl");
 	if (gameInterface) {
 		if (!gameInterface->OnCreate()) {
 			Debug::Error("Game failed to initialize", "CoreEngine.cpp", __LINE__);
@@ -83,7 +85,6 @@ float CoreEngine::GetScreenHeight() const {
 void CoreEngine::Update(const float deltaTime_) {
 	if (gameInterface) {
 		gameInterface->Update(deltaTime_);
-		std::cout << deltaTime_ << std::endl;
 	}
 }
 void CoreEngine::Render() {
@@ -97,6 +98,7 @@ void CoreEngine::Render() {
 void CoreEngine::OnDestroy() {
 
 	ShaderHandler::GetInstance()->OnDestroy();
+	TextureHandler::GetInstance()->OnDestroy();
 
 	delete gameInterface;
 	gameInterface = nullptr;
