@@ -17,8 +17,8 @@ angle(0.0f), rotation(glm::vec3(0.0f, 1.0f, 0.0f)), scale(glm::vec3(1.0f)), mode
 }
 
 GameObject::~GameObject() {
-	if (model)
-		delete model;
+	//if (model)
+	//	delete model;
 	model = nullptr;
 }
 
@@ -64,4 +64,12 @@ void GameObject::SetPosition(glm::vec3 position_) {
 	if (model) {
 		model->UpdateInstance(modelInstance, position, angle, rotation, scale);
 	}
+}
+std::string GameObject::GetTag() const
+{
+	return tag;
+}
+void GameObject::SetTag(std::string tag_)
+{
+	tag = tag_;
 }

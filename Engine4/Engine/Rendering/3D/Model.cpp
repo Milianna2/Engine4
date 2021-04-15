@@ -57,3 +57,7 @@ void Model::LoadModel() {
 	delete obj;
 	obj = nullptr;
 }
+GLuint Model::GetShaderProgram() const
+{
+	return shaderProgram;
+}

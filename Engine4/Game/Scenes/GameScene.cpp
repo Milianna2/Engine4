@@ -1,12 +1,12 @@
 #include "GameScene.h"
-GameScene::GameScene() : shape(nullptr), model(nullptr)
+GameScene::GameScene()/* : shape(nullptr), model(nullptr)*/
 {
 
 }
 GameScene::~GameScene() {
-	model = nullptr;
-	delete shape;
-	shape = nullptr;
+	//model = nullptr;
+	//delete shape;
+	//shape = nullptr;
 }
 bool GameScene::OnCreate() {
 	Debug::Info("We switched to the game scene", "GameScene.cpp", __LINE__);
@@ -15,6 +15,16 @@ bool GameScene::OnCreate() {
 	CoreEngine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f),
 		0.1f, 0.5f, 0.5f,
 		glm::vec3(1.0f, 1.0f, 1.0f)));
+	Model* diceModel = new Model("./Resources/Models/Dice.obj", "./Resources/Material/Dice.mtl", ShaderHandler::GetInstance()->GetShader("basicShader"));
+	ShaderHandler::GetInstance()->GetShader("basicShader");
+	Model* appleModel = new Model("./Resources/Models/Apple.obj", "./Resources/Material/Apple.mtl", ShaderHandler::GetInstance()->GetShader("basicShader"));
+	ShaderHandler::GetInstance()->GetShader("basicShader");
+	SceneGraph::GetInstance()->AddModel(diceModel);
+	SceneGraph::GetInstance()->AddModel(appleModel);
+
+
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(diceModel, glm::vec3(-2.0f, 0.0f, -2.0f)));
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(2.0f, 0.0f, 0.0f)), "Apple");
 	{
 		//TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture",
 		//	"./Resources/Textures/CheckerboardTexture.png");
@@ -238,19 +248,21 @@ bool GameScene::OnCreate() {
 		//	v.colour = glm::vec3(0.982f, 0.099f, 0.879f);
 		//	vertexList.push_back(v); }
 	}
-	model = new Model("./Resources/Models/Dice.obj", "./Resources/Material/Dice.mtl",
-		ShaderHandler::GetInstance()->GetShader("basicShader"));
+	diceModel = nullptr;
+	appleModel = nullptr;
+	//model = new Model("./Resources/Models/Dice.obj", "./Resources/Material/Dice.mtl",
+	//	ShaderHandler::GetInstance()->GetShader("basicShader"));
 	//SubMesh subMesh;
 	//subMesh.vertexList = vertexList;
 	//subMesh.textureID = TextureHandler::GetInstance()->GetTexture("CheckerboardTexture");
 	//model->AddMesh(new Mesh(subMesh,
 	//	ShaderHandler::GetInstance()->GetShader("basicShader")));
-	shape = new GameObject(model);
+	//shape = new GameObject(model);
 	return true;
 }
 void GameScene::Update(const float deltaTime_) {
-	shape->Update(deltaTime_);
+	SceneGraph::GetInstance()->Update(deltaTime_);
 }
 void GameScene::Render() {
-	shape->Render(CoreEngine::GetInstance()->GetCamera());
+	SceneGraph::GetInstance()->Render(CoreEngine::GetInstance()->GetCamera());
 }
