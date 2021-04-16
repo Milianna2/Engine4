@@ -54,10 +54,14 @@ void Model::LoadModel() {
 	for (int i = 0; i < obj->GetSubMeshes().size(); i++) {
 		meshes.push_back(new Mesh(obj->GetSubMeshes()[i], shaderProgram));
 	}
+	boundingBox = obj->GetBoundingBox();
 	delete obj;
 	obj = nullptr;
 }
 GLuint Model::GetShaderProgram() const
 {
 	return shaderProgram;
+}
+BoundingBox Model::GetBoundingBox() const {
+	return boundingBox;
 }
