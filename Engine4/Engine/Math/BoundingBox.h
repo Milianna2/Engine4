@@ -1,5 +1,5 @@
 #ifndef BOUNDINGBOX_H
-#define DOUNDINGBOX_H
+#define BOUNDINGBOX_H
 #include <glm/glm.hpp>
 #include <glm/gtx/string_cast.hpp>
 

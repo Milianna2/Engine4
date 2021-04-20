@@ -108,3 +108,9 @@ void Camera::ProcessMouseZoom(int y_) {
 	}
 	UpdateCameraVector();
 }
+float Camera::GetNearPlane() const {
+	return nearPlane;
+}
+float Camera::GetFarPlane() const {
+	return farPlane;
+}

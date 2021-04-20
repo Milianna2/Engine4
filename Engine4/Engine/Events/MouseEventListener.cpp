@@ -18,6 +18,7 @@ void MouseEventListener::Update(SDL_Event e_) {
 	if (e_.type == SDL_MOUSEBUTTONDOWN) {
 		UpdateMousePosition();
 		NotifyOfMousePressed(e_.button.button);
+		//Debug::Info("+++", "MouseEventListener.cpp", __LINE__);
 	}
 	else if (e_.type == SDL_MOUSEBUTTONUP) {
 		UpdateMousePosition();
@@ -30,6 +31,7 @@ void MouseEventListener::Update(SDL_Event e_) {
 	else if (e_.type == SDL_MOUSEWHEEL) {
 		UpdateMousePosition();
 		NotifyOfMouseScroll(e_.wheel.y);
+		
 	}
 }
 
@@ -41,7 +43,7 @@ void MouseEventListener::NotifyOfMousePressed(int buttonType_) {
 
 void MouseEventListener::NotifyOfMouseReleased(int buttonType_) {
 	if (engineInstance) {
-		engineInstance->NotifyOfMousePressed(mouse, buttonType_);
+		engineInstance->NotifyOfMouseReleased(mouse, buttonType_);
 	}
 }
 
