@@ -21,29 +21,29 @@ void MaterialLoader::LoadMaterial(std::string filePath_) {
 			matName = line.substr(7);
 			m.diffuseMap = Loadtexture(matName);
 			m.name = matName;
-		}else if (line.substr(0,4) == "	Ns "){
+		}else if (line.substr(0,4) == "\tNs "){
 			std::stringstream ni(line.substr(4));
 			float i;
 			ni >> i;
 			m.shininess = i;
 		}
-		else if (line.substr(0, 3) == "	d ") {
+		else if (line.substr(0, 3) == "\td ") {
 			std::stringstream ni(line.substr(3));
 			float i;
 			ni >> i;
 			m.transparency = i;
 		}
-		else if (line.substr(0, 4) == "	Ka ") {
+		else if (line.substr(0, 4) == "\tKa ") {
 			std::stringstream ni(line.substr(4));
 			float x, y, z;
 			ni >> x >> y >> z;
 			m.ambient = glm::vec3(x, y, z);
-		} else if (line.substr(0, 4) == "	Kd ") {
+		} else if (line.substr(0, 4) == "\tKd ") {
 			std::stringstream ni(line.substr(4));
 			float x, y, z;
 			ni >> x >> y >> z;
 			m.diffuse = glm::vec3(x, y, z);
-		} else if (line.substr(0, 4) == "	Ks ") {
+		} else if (line.substr(0, 4) == "\tKs ") {
 			std::stringstream ni(line.substr(4));
 			float x, y, z;
 			ni >> x >> y >> z;

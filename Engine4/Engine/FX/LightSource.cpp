@@ -2,7 +2,7 @@
 
 LightSource::LightSource(glm::vec3 position_, float ambientV_, float diffuseV_,
 	float specularV_, glm::vec3 lightColour_) : position(glm::vec3(0.0f, 0.0f, 2.0f)), ambientV(0.1f), 
-	diffuseV(0.5f), specularV(0.5f), lightColour(glm::vec3(1.0f, 1.0f, 1.0f)){
+	diffuseV(0.1f), specularV(0.1f), lightColour(glm::vec3(1.0f, 1.0f, 1.0f)){
 	position = position_;
 	ambientV = ambientV_;
 	diffuseV = diffuseV_;

@@ -2,6 +2,7 @@
 #define COLLISIONHANDLER_H
 #include "Ray.h"
 #include "../Rendering/3D/GameObject.h"
+#include "../Core/OctSpatialPartion.h"
 class CollisionHandler
 {
 public:
@@ -12,7 +13,7 @@ public:
 
 	static CollisionHandler* GetInstance();
 
-	void OnCreate();
+	void OnCreate(float worldSize_);
 	void AddObject(GameObject* go_);
 	void MouseUpdate(glm::vec2 mousePosition_, int buttonType_);
 	void OnDestroy();
@@ -22,9 +23,8 @@ private:
 
 	static std::unique_ptr<CollisionHandler> collisionInstance;
 	friend std::default_delete<CollisionHandler>;
-
-	static std::vector<GameObject*> colliders;
 	static std::vector<GameObject*> prevCollisions;
+	static OctSpatialPartion* scenePartion;
 };
 
 #endif

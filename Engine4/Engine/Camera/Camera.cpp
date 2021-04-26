@@ -84,10 +84,9 @@ std::vector<LightSource*> Camera::GetLightList()
 }
 
 void Camera::ProcessMouseMovement(glm::vec2 offset_) {
-	//offset_.x += offset_.x;
-	//offset_.y += offset_.y;
+	offset_ *= 0.05f;
 	pitch += offset_.y;
-	yaw -= offset_.x;
+	yaw += offset_.x;
 	if (pitch > 89.0f) {
 		pitch = 89.0f;
 	}

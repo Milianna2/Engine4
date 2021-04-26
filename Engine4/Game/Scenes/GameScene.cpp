@@ -12,10 +12,10 @@ bool GameScene::OnCreate() {
 	Debug::Info("We switched to the game scene", "GameScene.cpp", __LINE__);
 	CoreEngine::GetInstance()->SetCamera(new Camera());
 	CoreEngine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
-	CoreEngine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f),
-		0.1f, 0.5f, 0.5f,
+	CoreEngine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 6.0f),
+		0.1f, 0.1f, 0.1f,
 		glm::vec3(0.4f, 0.4f, 0.4f)));
-	CollisionHandler::GetInstance()->OnCreate();
+	CollisionHandler::GetInstance()->OnCreate(100.0f);
 	Model* diceModel = new Model("./Resources/Models/Dice.obj", "./Resources/Material/Dice.mtl", ShaderHandler::GetInstance()->GetShader("basicShader"));
 	ShaderHandler::GetInstance()->GetShader("basicShader");
 	Model* appleModel = new Model("./Resources/Models/Apple.obj", "./Resources/Material/Apple.mtl", ShaderHandler::GetInstance()->GetShader("basicShader"));
@@ -25,7 +25,7 @@ bool GameScene::OnCreate() {
 
 
 	SceneGraph::GetInstance()->AddGameObject(new GameObject(diceModel, glm::vec3(-2.0f, 0.0f, -2.0f)), "Dice");
-	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(2.0f, 0.0f, 0.0f)), "Apple");
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(1.5f, 0.0f, 0.0f)), "Apple");
 	{
 		//TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture",
 		//	"./Resources/Textures/CheckerboardTexture.png");

@@ -37,7 +37,8 @@ void LoadOBJModel::LoadModel(const std::string& filePath_) {
 			"LoadOBJModel.cpp", __LINE__);
 		return;
 	}
-
+	boundingBox.minVert = glm::vec3(1000.0f);
+	boundingBox.maxVert = glm::vec3(-1000.0f);
 	std::string line;
 	while (std::getline(in, line)) {
 		//vertex data

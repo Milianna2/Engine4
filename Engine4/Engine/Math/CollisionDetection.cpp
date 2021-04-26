@@ -46,51 +46,78 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 	glm::vec3 dotDir(glm::dot(rayDirection, xAxis),
 		glm::dot(rayDirection, yAxis),
 		glm::dot(rayDirection, zAxis));
-	if (fabs(dotDir.x) > 0.001f || fabs(dotDir.y) > 0.001f || fabs(dotDir.z) > 0.001f) {
-		glm::vec3 t1((dotDelta.x + boxMin.x) / dotDir.y, (dotDelta.y + boxMin.y) / dotDir.y, (dotDelta.z + boxMin.z) / dotDir.z);
-		glm::vec3 t2((dotDelta.x + boxMax.x) / dotDir.x, (dotDelta.y + boxMax.y) / dotDir.y, (dotDelta.z + boxMax.z) / dotDir.z);
+	if (fabs(dotDir.x) > 0.001f) {
+		float t1 = (dotDelta.x + boxMin.x) / dotDir.x;
+		float t2 = (dotDelta.x + boxMax.x) / dotDir.x;
 
-		if (t1.x > t2.x) {
-			float w = t1.x;
-			t1.x = t2.x;
-			t2.x = w;
+		if (t1 > t2) {
+			float w = t1;
+			t1 = t2;
+			t2 = w;
 		}
-		//if (t1.y > t2.y) {
-		//	float w = t1.y;
-		//	t1.y = t2.y;
-		//	t2.y = w;
-		//}
-		//if (t1.z > t2.z) {
-		//	float w = t1.z;
-		//	t1.z = t2.z;
-		//	t2.z = w;
-		//}
-		if (t2.x < tMax) {
-			tMax = t2.x;
+		if (t2 < tMax) {
+			tMax = t2;
 		}
-		//if (t2.y < tMax) {
-		//	tMax = t2.y;
-		//}
-		//if (t2.z < tMax) {
-		//	tMax = t2.z;
-		//}
-		if (t1.x > tMin) {
-			tMin = t1.x;
+		if (t1 > tMin) {
+			tMin = t1;
 		}
-		//if (t1.y > tMin) {
-		//	tMin = t1.y;
-		//}
-		//if (t1.z > tMin) {
-		//	tMin = t1.z;
-		//}
 		if (tMax < tMin) {
 			return false;
 		}
 	}
 	else {
-		if ((-dotDelta.x + boxMin.x > 0.0f || -dotDelta.x + boxMax.x < 0.0f) || (-dotDelta.y + boxMin.y > 0.0f || -dotDelta.y + boxMax.y < 0.0f) || (-dotDelta.z + boxMin.z > 0.0f || -dotDelta.z + boxMax.z < 0.0f)) {
+		if ((-dotDelta.x + boxMin.x > 0.0f || -dotDelta.x + boxMax.x < 0.0f)) {
 
-			return true;
+			return false;
+		}
+	}
+	if (fabs(dotDir.y) > 0.001f) {
+		float t1 = (dotDelta.y + boxMin.y) / dotDir.y;
+		float t2 = (dotDelta.y + boxMax.y) / dotDir.y;
+
+		if (t1 > t2) {
+			float w = t1;
+			t1 = t2;
+			t2 = w;
+		}
+		if (t2 < tMax) {
+			tMax = t2;
+		}
+		if (t1 > tMin) {
+			tMin = t1;
+		}
+		if (tMax < tMin) {
+			return false;
+		}
+	}
+	else {
+		if ((-dotDelta.y + boxMin.y > 0.0f || -dotDelta.y + boxMax.y < 0.0f)) {
+
+			return false;
+		}
+	}
+	if (fabs(dotDir.z) > 0.001f) {
+		float t1 = (dotDelta.z + boxMin.z) / dotDir.z;
+		float t2 = (dotDelta.z + boxMax.z) / dotDir.z;
+
+		if (t1 > t2) {
+			float w = t1;
+			t1 = t2;
+			t2 = w;
+		}
+		if (t2 < tMax) {
+			tMax = t2;
+		}
+		if (t1 > tMin) {
+			tMin = t1;
+		}
+		if (tMax < tMin) {
+			return false;
+		}
+	}
+	else {
+		if ((-dotDelta.z + boxMin.z > 0.0f || -dotDelta.z + boxMax.z < 0.0f)) {
+			return false;
 		}
 	}
 
