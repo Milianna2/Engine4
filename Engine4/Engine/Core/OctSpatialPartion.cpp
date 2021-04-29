@@ -82,9 +82,9 @@ int OctNode::GetObjectCount() const {
 }
 bool OctNode::IsLeaf() const {
 	if (children[0] == nullptr) {
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 BoundingBox* OctNode::GetBoundingBox() const {
 	return octBounds;
@@ -148,10 +148,10 @@ void OctSpatialPartion::AddObjectToCell(OctNode* cell_, GameObject* obj_) {
 			cell_->AddCollisionObject(obj_);
 			std::cout << "Added " << obj_->GetTag() << " to cell: "
 
-				<< glm::to_string(cell_->GetBoundingBox()->minVert) << std::endl;
-			std::cout << "Added " << obj_->GetTag() << " to cell: "
-
 				<< glm::to_string(cell_->GetBoundingBox()->maxVert) << std::endl;
+			//std::cout << "Added " << obj_->GetTag() << " to cell: "
+
+			//	<< glm::to_string(cell_->GetBoundingBox()->maxVert) << std::endl;
 		}
 	}
 	else {
@@ -166,8 +166,8 @@ void OctSpatialPartion::PrepareCollisionQuery(OctNode* cell_, Ray ray_) {
 		if (ray_.IsColliding(cell_->GetBoundingBox())) {
 			rayIntersectionList.push_back(cell_);
 		}
+	}
 		else for (int i = 0; i < CHILDREN_NUMBER; i++) {
 			PrepareCollisionQuery(cell_->GetChild(static_cast<OctChildren>(i)), ray_);
 		}
-	}
 }

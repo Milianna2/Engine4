@@ -22,7 +22,9 @@ public:
 		glm::vec3 maxCorner = GetTransformedPoint(maxVert, transform);
 		glm::vec3 otherMinCorner = GetTransformedPoint(box_->minVert, box_->transform);
 		glm::vec3 otherMaxCorner = GetTransformedPoint(box_->maxVert, box_->transform);
-		return true;
+		return (minCorner.x <= otherMaxCorner.x && maxCorner.x >= otherMinCorner.x) &&
+			(minCorner.y <= otherMaxCorner.y && maxCorner.y >= otherMinCorner.y) &&
+			(minCorner.z <= otherMaxCorner.z && maxCorner.z >= otherMinCorner.z);
 	}
 private:
 	inline glm::vec3 GetTransformedPoint(glm::vec3 point_, glm::mat4 transform_) {
