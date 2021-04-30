@@ -19,8 +19,10 @@ Ray CollisionDetection::MousePosToWorldRay(glm::vec2 mouseCoords_, float screenW
 	glm::mat4 inverse = glm::inverse(camera_->GetPerspective() * camera_->GetView());
 	glm::vec4 rayStartWorld = inverse * rayStartNDC;
 	rayStartWorld /= rayStartWorld.w;
+
 	glm::vec4 rayEndWorld = inverse * rayEndNDC;
 	rayEndWorld /= rayEndWorld.w;
+
 	glm::vec3 rayDirWorld(rayEndWorld - rayStartWorld);
 	rayDirWorld = glm::normalize(rayDirWorld);
 
@@ -29,7 +31,7 @@ Ray CollisionDetection::MousePosToWorldRay(glm::vec2 mouseCoords_, float screenW
 bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 	glm::mat4 modelMatrix = box_->transform;
 	glm::vec3 rayOrigin = ray_->origin;
-	glm::vec3 rayDirection = ray_->origin;
+	glm::vec3 rayDirection = ray_->direction;
 	glm::vec3 boxMin = box_->minVert;
 	glm::vec3 boxMax = box_->maxVert;
 	float tMin = CoreEngine::GetInstance()->GetCamera()->GetNearPlane();
